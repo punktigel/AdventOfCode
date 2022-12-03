@@ -16,6 +16,16 @@ def get_points(indx_op, indx_me):
         return 3 + indx_me + 1
 
     return indx_me + 1 # Lose
+      
+# Part 2:
+def change_option(indx, my_option):
+    if my_option == "Z": # Win
+        return 6 + (indx + 1) % 3 + 1
+
+    elif my_option == "Y": # Draw
+        return 3 + indx + 1
+
+    return (indx -1) % 3 + 1 # Lose
 
 
 def get_max_points(file):
@@ -29,18 +39,6 @@ def get_max_points(file):
             sum_2 += change_option(get_index(options[0]), options[1])
 
     print(f"Solution: \na): {sum_1}\nb): {sum_2}")
-
-            
-# Part 2:
-def change_option(indx, my_option):
-    if my_option == "Z": # Win
-        return 6 + (indx + 1) % 3 + 1
-
-    elif my_option == "Y": # Draw
-        return 3 + indx + 1
-
-    return (indx -1) % 3 + 1 # Lose
-
 
 if __name__ == "__main__":
     get_max_points('input.txt')
