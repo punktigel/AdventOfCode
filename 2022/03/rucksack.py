@@ -1,8 +1,8 @@
 def get_value(c):
-    value = ord(c) - 97 + 1
-    if value < 0:
-        value += 32 -1 + 27
-    return value
+    if ord(c) > 90: # a - z: 1 - 26
+        return ord(c) - 97 + 1
+    return ord(c) - 65 + 27 # A - Z: 27 - 52
+
 
 def search_double(fst, snd):
     list = []
@@ -11,6 +11,11 @@ def search_double(fst, snd):
             list.append(ele)
     return list
 
+# Part 2:
+def search_three(fst, mid, lst):    
+    for ele in search_double(fst, mid):
+        if ele in lst:
+            return get_value(ele)
 
 def get_input(file):
     sum_1 = 0
@@ -30,18 +35,7 @@ def get_input(file):
     
         print(f"Solution: \na): {sum_1}\nb): {sum_2}")
 
-def search_three(fst, mid, lst):    
-    for ele in search_double(fst, mid):
-        if ele in lst:
-            return get_value(ele)
 
 if __name__ == "__main__":
     get_input('input.txt')
 
-
-    """
-    print(get_value('a'))
-    print(get_value('z'))
-    print(get_value('A'))
-    print(get_value('Z')) 
-    """
