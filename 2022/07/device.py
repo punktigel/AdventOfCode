@@ -1,13 +1,8 @@
+needed = 30000000
+space = 70000000
 
 def delete_smallest(arr):
-    del_arr = []
-    needed = 30000000
-    space = 70000000 - arr[0]
-    
-    for ele in arr:
-        if ele + space >= needed:
-            del_arr.append(ele)
-    return min(del_arr)
+    return min(ele for ele in arr if space - arr[0] + ele >= needed)
 
 def sum_dir(arr):
     arr_sum = []
@@ -15,7 +10,7 @@ def sum_dir(arr):
         sum = 0
         for ele in dir:
             if ele != dir[0]:
-                sum += int(ele[0])
+                sum += ele
         arr_sum.append([dir[0], sum])
 
     for i in range(len(arr_sum)):
@@ -24,25 +19,23 @@ def sum_dir(arr):
                 arr_sum[i][1] += arr_sum[j][1]
 
     sol_1 = 0
-    for i in range(len(arr_sum)):
-        if arr_sum[i][1] <= 100000:
-            sol_1 += arr_sum[i][1]
+    for ele in arr_sum:
+        if ele[1] <= 100000:
+            sol_1 += ele[1]       
+
 
     arr_values = []
     for ele in arr_sum:
         arr_values.append(ele[1])
 
-    
+
 
     sol_2 = delete_smallest(arr_values)
     print(f"Solution: \na): {sol_1}\nb): {sol_2}")
 
 def get_path(arr, dir=""):
-    ret = ""
-    for ele in arr:
-        ret += ele
-    
-    return ret + dir
+    return ''.join(arr) + dir
+
 
 def find_dir(arr, path):
     for i in range(len(arr)):
@@ -62,7 +55,7 @@ def add_files(values, arr, path):
         arr.append([get_path(path, values[1])])
     else:
         indx = find_dir(arr, get_path(path))
-        arr[indx].append(values)
+        arr[indx].append(int(values[0]))
 
 def get_directory(lines):
     arr_files = [['/']]
