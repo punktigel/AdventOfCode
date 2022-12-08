@@ -2,44 +2,44 @@ def add_list(arr, i, j, ele):
     if arr == [] or (i,j,ele) not in arr:
         arr.append((i,j, ele))
 
-def calc_view(arr, updown,lr):
+def calc_view(arr, v,h): # vertical, horizontal
     ret = []
-    height = arr[updown][lr]
+    height = arr[v][h]
 
-    if updown == 0 or updown == len(arr) -1 or lr == 0 or lr == len(arr[0]) - 1:
+    if v == 0 or v == len(arr) -1 or h == 0 or h == len(arr[0]) - 1:
         return 0
 
     # look left
-    idx = lr - 1
+    idx = h - 1
     while idx > 0:
-        if arr[updown][idx] >= height:
+        if arr[v][idx] >= height:
             break
         idx -= 1
-    ret.append(lr - idx)
+    ret.append(h - idx)
 
-    #look right
-    idx = lr + 1
+    # look right
+    idx = h + 1
     while idx < len(arr[0]) -1:
-        if arr[updown][idx] >= height:
+        if arr[v][idx] >= height:
             break
         idx += 1
-    ret.append(idx - lr)
+    ret.append(idx - h)
 
     # look up
-    idx = updown - 1
+    idx = v - 1
     while idx > 0:
-        if arr[idx][lr] >= height:
+        if arr[idx][h] >= height:
             break
         idx -= 1
-    ret.append(updown - idx)
+    ret.append(v - idx)
 
     # look down
-    idx = updown + 1
+    idx = v + 1
     while idx < len(arr) -1:
-        if arr[idx][lr] >= height:
+        if arr[idx][h] >= height:
             break
         idx += 1
-    ret.append(idx - updown)
+    ret.append(idx - v)
 
     sol = 1
     for ele in ret:
@@ -48,9 +48,9 @@ def calc_view(arr, updown,lr):
 
 def get_scenic_score(arr):
     max_view = 0
-    for i in range(len(arr)): # up down
-        for j in range(len(arr)): # left right
-            view = calc_view(arr, i, j)
+    for v in range(len(arr)): # vertical
+        for h in range(len(arr)): # horizontal
+            view = calc_view(arr, v, h)
             if view > max_view:
                 max_view = view
     return max_view
